@@ -1,4 +1,4 @@
-import { Component } from "./Component";
+import { Component, ComponentName } from "./Component";
 
 export enum NounType {
   WALL = 1,
@@ -15,9 +15,7 @@ export enum NounType {
 
 // A Noun is something that can be changed by rules
 export class Noun extends Component {
-  type: NounType;
-  constructor(type: NounType) {
-    super('Noun');
-    this.type = type;
+  constructor(public type: NounType) {
+    super(ComponentName.Noun);
   }
 }

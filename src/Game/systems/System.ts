@@ -6,6 +6,6 @@ export interface SystemUpdateResult {
 }
 
 export abstract class System {
-
+  protected entities: Entity[] = [];
   abstract update(elapsedTime: number, ...args: any[]): SystemUpdateResult;
 }

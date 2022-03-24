@@ -1,7 +1,7 @@
-import { Component } from "./Component";
+import { Component, ComponentName } from "./Component";
 
 export class Sprite extends Component {
-  constructor() {
-    super('Sprite');
+  constructor(public image: HTMLImageElement) {
+    super(ComponentName.Sprite);
   }
 }

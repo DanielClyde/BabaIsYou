@@ -1,5 +1,5 @@
 import { BitwiseHelper } from './../../Utils/BitwiseHelper';
-import { Component } from "./Component";
+import { Component, ComponentName } from "./Component";
 
 export const FlagBitPositions = {
   PUSH: 0,
@@ -13,7 +13,7 @@ export const FlagBitPositions = {
 export class ValueFlags extends Component {
   value = 0;
   constructor() {
-    super('ValueFlags');
+    super(ComponentName.ValueFlags);
   }
 
   getFlag(bit: number): boolean {

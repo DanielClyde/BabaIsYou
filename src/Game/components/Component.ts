@@ -1,6 +1,12 @@
+export enum ComponentName {
+  AnimatedSprite = 'AnimatedSprite',
+  InputControlled = 'InputControlled',
+  Noun = 'Noun',
+  Position = 'Position',
+  Sprite = 'Sprite',
+  Text = 'Text',
+  ValueFlags = 'ValueFlags',
+}
 export class Component {
-  name: string;
-  constructor(name: string) {
-    this.name = name;
-  }
+  constructor(public name: ComponentName) { }
 }

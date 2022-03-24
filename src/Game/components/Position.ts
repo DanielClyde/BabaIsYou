@@ -1,4 +1,4 @@
-import { Component } from "./Component";
+import { Component, ComponentName } from "./Component";
 
 export interface Coordinates {
   x: number,
@@ -6,9 +6,7 @@ export interface Coordinates {
 };
 
 export class Position extends Component {
-  coords: Coordinates;
-  constructor(coords: Coordinates) {
-    super('Position');
-    this.coords = {...coords};
+  constructor(public coords: Coordinates) {
+    super(ComponentName.Position);
   }
 }

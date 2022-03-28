@@ -1,18 +1,14 @@
+import { ImageClip } from './Sprite';
 import { Component, ComponentName } from "./Component";
 
-export interface AnimationFrame {
-  spriteSheet: HTMLImageElement,
-  offsetX: number,
-  offsetY: number,
+export interface AnimationFrame extends ImageClip {
   lengthMS: number,
   timeLeftMS: number,
-  width: number,
-  height: number,
 }
 
 
 export class AnimatedSprite extends Component {
-  constructor(public frames: AnimationFrame[]) {
+  constructor(public image: HTMLImageElement, public width: number, public height: number, public frames: AnimationFrame[]) {
     super(ComponentName.ValueFlags);
   }
 }

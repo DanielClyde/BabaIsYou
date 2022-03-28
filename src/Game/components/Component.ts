@@ -6,6 +6,8 @@ export enum ComponentName {
   Sprite = 'Sprite',
   Text = 'Text',
   ValueFlags = 'ValueFlags',
+  ParticleEffect = 'ParticleEffect',
+  Movable = 'Movable',
 }
 export class Component {
   constructor(public name: ComponentName) { }

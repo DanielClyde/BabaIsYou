@@ -6,7 +6,7 @@ import { Entity } from "./Entity";
 export class Rock {
   static Create(coords: Coordinates): Entity {
     const rock: Entity = new Entity();
-    rock.addComponent(new Sprite(new Image()));
+    rock.addComponent(new Sprite(new Image(), 1, 1));
     rock.addComponent(new Position({...coords}));
     rock.addComponent(new Noun(NounType.ROCK));
     return rock;

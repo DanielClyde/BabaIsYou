@@ -32,7 +32,7 @@ export class Wall {
     wall.addComponent(new Position({ ...coords }));
     wall.addComponent(new Noun(NounType.WALL));
     const flagsComponent = new ValueFlags();
-    flagsComponent.setFlag(FlagBitPositions.STOP, true);
+    flagsComponent.setFlag(FlagBitPositions.PUSH, true);
     wall.addComponent(flagsComponent);
     return wall;
   }

@@ -16,57 +16,13 @@ export class InputSystem extends System {
       const [input, position] = [e.getComponent<InputControlled>(ComponentName.InputControlled), e.getComponent<Position>(ComponentName.Position)];
       if (input && position) {
         if (this.keyboardInput.isKeyPressed(input.controls.MOVE_DOWN)) {
-          const { canMove, pushedEntities } = this.canMoveInDirection('down', position.coords.x, position.coords.y, grid, []);
-          if (canMove) {
-            grid.deleteEntity(e);
-            position.coords.y += 1;
-            grid.insert(position.coords.x, position.coords.y, e);
-            pushedEntities.forEach((p) => {
-              const pushedPosition = p.getComponent<Position>(ComponentName.Position);
-              grid.deleteEntity(p);
-              pushedPosition.coords.y += 1;
-              grid.insert(pushedPosition.coords.x, pushedPosition.coords.y, p);
-            });
-          }
+          this.moveEntityDirection('down', e, position, grid);
         } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_LEFT)) {
-          const { canMove, pushedEntities } = this.canMoveInDirection('left', position.coords.x, position.coords.y, grid, []);
-          if (canMove) {
-            grid.deleteEntity(e);
-            position.coords.x -= 1;
-            grid.insert(position.coords.x, position.coords.y, e);
-            pushedEntities.forEach((p) => {
-              const pushedPosition = p.getComponent<Position>(ComponentName.Position);
-              grid.deleteEntity(p);
-              pushedPosition.coords.x -= 1;
-              grid.insert(pushedPosition.coords.x, pushedPosition.coords.y, p);
-            });
-          }
+          this.moveEntityDirection('left', e, position, grid);
         } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_RIGHT)) {
-          const { canMove, pushedEntities } = this.canMoveInDirection('right', position.coords.x, position.coords.y, grid, []);
-          if (canMove) {
-            grid.deleteEntity(e);
-            position.coords.x += 1;
-            grid.insert(position.coords.x, position.coords.y, e);
-            pushedEntities.forEach((p) => {
-              const pushedPosition = p.getComponent<Position>(ComponentName.Position);
-              grid.deleteEntity(p);
-              pushedPosition.coords.x += 1;
-              grid.insert(pushedPosition.coords.x, pushedPosition.coords.y, p);
-            });
-          }
+          this.moveEntityDirection('right', e, position, grid);
         } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_UP)) {
-          const { canMove, pushedEntities } = this.canMoveInDirection('up', position.coords.x, position.coords.y, grid, []);
-          if (canMove) {
-            grid.deleteEntity(e);
-            position.coords.y -= 1;
-            grid.insert(position.coords.x, position.coords.y, e);
-            pushedEntities.forEach((p) => {
-              const pushedPosition = p.getComponent<Position>(ComponentName.Position);
-              grid.deleteEntity(p);
-              pushedPosition.coords.y -= 1;
-              grid.insert(pushedPosition.coords.x, pushedPosition.coords.y, p);
-            });
-          }
+          this.moveEntityDirection('up', e, position, grid);
         } else if (this.keyboardInput.isKeyPressed(input.controls.RESET)) {
 
         } else if (this.keyboardInput.isKeyPressed(input.controls.UNDO)) {
@@ -86,7 +42,7 @@ export class InputSystem extends System {
       pushedEntities.forEach((p) => {
         const pushedPosition = p.getComponent<Position>(ComponentName.Position);
         grid.deleteEntity(p);
-        this.movePositionInDirection(direction, position);
+        this.movePositionInDirection(direction, pushedPosition);
         grid.insert(pushedPosition.coords.x, pushedPosition.coords.y, p);
       });
     }

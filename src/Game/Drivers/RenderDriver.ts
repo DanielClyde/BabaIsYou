@@ -16,11 +16,11 @@ export class RenderDriver {
     this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
   }
 
-  renderImage(img: HTMLImageElement, center: Coordinates, width: number, height: number, rotation: number, clip?: ImageClip) {
+  renderImage(img: HTMLImageElement, coords: Coordinates, width: number, height: number, rotation: number, clip?: ImageClip) {
     this.context.save();
-    this.context.translate(center.x, center.y);
+    this.context.translate(coords.x, coords.y);
     this.context.rotate(rotation);
-    this.context.translate(-center.x, -center.y);
+    this.context.translate(-coords.x, -coords.y);
     if (clip) {
       this.context.drawImage(
         img,
@@ -28,16 +28,16 @@ export class RenderDriver {
         clip.offsetY,
         clip.width,
         clip.height,
-        center.x,
-        center.y,
+        coords.x,
+        coords.y,
         width,
         height,
       );
     } else {
       this.context.drawImage(
         img,
-        center.x,
-        center.y,
+        coords.x,
+        coords.y,
         width,
         height,
       );

@@ -21,6 +21,6 @@ export class ValueFlags extends Component {
   }
 
   setFlag(bit: number, val: boolean) {
-    return BitwiseHelper.setBooleanInFlags(this.value, val, bit);
+    this.value = BitwiseHelper.setBooleanInFlags(this.value, val, bit);
   }
 }

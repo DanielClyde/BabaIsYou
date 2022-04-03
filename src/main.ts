@@ -2,4 +2,6 @@ import { GameModel } from './Game/GameModel';
 import './style.css'
 
 const gameModel = new GameModel();
-gameModel.startLoop();
+gameModel.init().then(() => {
+  gameModel.startLoop();
+});

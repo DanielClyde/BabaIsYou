@@ -1,3 +1,4 @@
+import { Flag } from './Flag';
 import { ComponentName as ComponentName } from './../components/Component';
 import { Component } from "../components/Component";
 import { Wall } from './Wall';
@@ -15,7 +16,8 @@ export enum EntityType {
   BABA = 'b',
   ROCK = 'r',
   PARTICLE = 'p',
-  Floor = 'l',
+  FLOOR = 'l',
+  FLAG = 'f'
 }
 export class Entity {
   static FromType(type: EntityType, coords: Coordinates) {
@@ -25,8 +27,12 @@ export class Entity {
       return Baba.Create({ ...coords });
     } else if (type === EntityType.WALL) {
       return Wall.Create({ ...coords });
-    } else if (type === EntityType.Floor) {
+    } else if (type === EntityType.FLOOR) {
       return Floor.Create({ ...coords });
+    } else if (type === EntityType.ROCK) {
+      return Rock.Create({ ...coords });
+    } else if (type === EntityType.FLAG) {
+      return Flag.Create({ ...coords });
     } else {
       return null;
     }

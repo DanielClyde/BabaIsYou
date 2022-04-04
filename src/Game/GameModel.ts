@@ -26,7 +26,7 @@ export class GameModel {
   constructor() { }
 
   public init(levelName: string = '../../assets/levels/levels-all.bbiy'): Promise<void> {
-    return this.levelParser.parseFromFile(levelName, 20, 1).then((grid: GameGrid) => {
+    return this.levelParser.parseFromFile(levelName, 20, 3).then((grid: GameGrid) => {
       this.grid = grid;
       this.initialized = true;
       console.log('DONE INITIALIZING GRID', this.grid);
@@ -53,6 +53,15 @@ export class GameModel {
             y: Random.nextRange(0, 19),
           },
           50,
+        );
+      } else if (e.key === 'b') {
+        this.particleLifetimeSystem.addParticleEffect(
+          ParticleEffectType.BORDER_SPARKLE,
+          {
+            x: 5,
+            y: 8,
+          },
+          1500,
         );
       }
     });

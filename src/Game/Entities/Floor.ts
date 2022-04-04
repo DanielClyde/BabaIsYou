@@ -6,7 +6,7 @@ import { AnimationFrame } from '../components/AnimatedSprite';
 
 export class Floor {
   static Create(coords: Coordinates): Entity {
-    const f = new Entity(EntityType.Floor);
+    const f = new Entity(EntityType.FLOOR);
     const img = new Image();
     img.src = '../assets/floor.png';
     const defaultFrame: AnimationFrame = {

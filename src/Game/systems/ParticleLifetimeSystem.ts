@@ -10,6 +10,7 @@ import { Particle } from '../Entities/Particle';
 export enum ParticleEffectType {
   EXPLOSION,
   FIREWORK,
+  BORDER_SPARKLE,
 }
 
 export interface ParticleAreas {
@@ -25,14 +26,13 @@ export class ParticleLifetimeSystem extends System {
   private areas: ParticleAreas[] = [];
 
   addParticleEffect(type: ParticleEffectType, center: Coordinates, lifetime: number) {
-    console.log('adding explosion at ' + center.x + ' ' + center.y)
     this.areas.push({
       type,
       lifetime,
       alive: 0,
       center,
       id: IDGenerator.getNextId(),
-      particlesPerFrame: 25,
+      particlesPerFrame: type === ParticleEffectType.EXPLOSION ? 25 : 10,
     });
   }
 
@@ -42,7 +42,11 @@ export class ParticleLifetimeSystem extends System {
     this.areas.forEach((a) => {
       // Add new particle to area each frame;
       for (let i = 0; i < a.particlesPerFrame; i++) {
-        grid.insert(a.center.x, a.center.y, Particle.Explosion({...a.center}));
+        if (a.type === ParticleEffectType.EXPLOSION) {
+          grid.insert(a.center.x, a.center.y, Particle.Explosion({...a.center}));
+        } else if (a.type === ParticleEffectType.BORDER_SPARKLE) {
+          grid.insert(a.center.x, a.center.y, Particle.BorderSparkle({...a.center}));
+        }
       }
       a.alive += elapsedTime;
       if (a.alive > a.lifetime) {

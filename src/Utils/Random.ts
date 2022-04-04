@@ -6,6 +6,11 @@ export class Random {
     return Math.random();
   }
 
+  static nextRangeDecimal(min: number, max: number) {
+    let range = max - min;
+    return (Math.random() * range) + min
+  }
+
   static nextRange(min: number, max: number) {
     let range = max - min;
     return Math.floor((Math.random() * range) + min);

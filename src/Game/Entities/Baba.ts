@@ -1,3 +1,5 @@
+import { Noun, NounType } from './../components/Noun';
+import { CELL_SIZE } from './../GameGrid';
 import { ValueFlags, FlagBitPositions } from '../components/ValueFlags';
 import { InputControlled } from '../components/InputControlled';
 import { Coordinates } from '../components/Position';
@@ -17,7 +19,7 @@ export class Baba {
       lengthMS: 400,
       timeLeftMS: 400,
     };
-    baba.addComponent(new AnimatedSprite(img, 50, 50, [
+    baba.addComponent(new AnimatedSprite(img, CELL_SIZE, CELL_SIZE, [
       {
         ...defaultFrame,
       },
@@ -39,6 +41,7 @@ export class Baba {
       UNDO: 'z',
       RESET: 'r',
     }));
+    baba.addComponent(new Noun(NounType.BABA));
     const flagsComponent = new ValueFlags();
     flagsComponent.setFlag(FlagBitPositions.YOU, true);
     baba.addComponent(flagsComponent);

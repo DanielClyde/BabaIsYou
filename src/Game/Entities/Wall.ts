@@ -1,3 +1,4 @@
+import { CELL_SIZE } from './../GameGrid';
 import { AnimatedSprite } from './../components/AnimatedSprite';
 import { ValueFlags, FlagBitPositions } from './../components/ValueFlags';
 import { Noun, NounType } from './../components/Noun';
@@ -18,7 +19,7 @@ export class Wall {
     };
     const img = new Image();
     img.src = '../assets/wall.png';
-    wall.addComponent(new AnimatedSprite(img, 50, 50, [
+    wall.addComponent(new AnimatedSprite(img, CELL_SIZE, CELL_SIZE, [
       { ...defaultFrame },
       {
         ...defaultFrame,

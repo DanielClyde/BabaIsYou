@@ -31,7 +31,7 @@ export class Hedge {
     ]));
     bush.addComponent(new Position({...coords}));
     const flagsComponent = new ValueFlags();
-    flagsComponent.setFlag(FlagBitPositions.STOP, true);
+    flagsComponent.setFlag(FlagBitPositions.STOP, true, true);
     bush.addComponent(flagsComponent);
     return bush;
   }

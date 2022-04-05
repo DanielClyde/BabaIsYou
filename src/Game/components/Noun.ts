@@ -6,10 +6,8 @@ export enum NounType {
   FLAG = 3,
   ROCK = 4,
   LAVA = 5,
-  MARIO = 6,
+  BABA = 6,
   WATER = 7,
-  NOUN_TEXT,
-  VERB_TEXT,
 }
 
 

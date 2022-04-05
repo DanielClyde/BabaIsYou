@@ -9,11 +9,14 @@ export class KeyboardInputDriver {
 
   isKeyPressed(key: string): boolean {
     if (this.keys[key] && !this.disabledKeys[key]) {
-      this.disabledKeys[key] = true;
       return true;
     } else {
       return false;
     }
+  }
+
+  disableKeyUntilReleased(key: string) {
+    this.disabledKeys[key] = true;
   }
 
   private keyPress(e: KeyboardEvent) {

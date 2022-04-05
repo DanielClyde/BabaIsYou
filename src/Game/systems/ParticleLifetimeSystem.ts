@@ -25,6 +25,10 @@ export interface ParticleAreas {
 export class ParticleLifetimeSystem extends System {
   private areas: ParticleAreas[] = [];
 
+  public reset(): void {
+    this.areas = [];
+  }
+
   addParticleEffect(type: ParticleEffectType, center: Coordinates, lifetime: number) {
     this.areas.push({
       type,
@@ -36,16 +40,15 @@ export class ParticleLifetimeSystem extends System {
     });
   }
 
-
-  update(elapsedTime: number, entities: Entity[], grid: GameGrid): void {
+  updateAreas(elapsedTime: number, grid: GameGrid): void {
     const deletedAreas: ParticleAreas[] = [];
     this.areas.forEach((a) => {
       // Add new particle to area each frame;
       for (let i = 0; i < a.particlesPerFrame; i++) {
         if (a.type === ParticleEffectType.EXPLOSION) {
-          grid.insert(a.center.x, a.center.y, Particle.Explosion({...a.center}));
+          grid.insert(a.center.x, a.center.y, Particle.Explosion({ ...a.center }));
         } else if (a.type === ParticleEffectType.BORDER_SPARKLE) {
-          grid.insert(a.center.x, a.center.y, Particle.BorderSparkle({...a.center}));
+          grid.insert(a.center.x, a.center.y, Particle.BorderSparkle({ ...a.center }));
         }
       }
       a.alive += elapsedTime;
@@ -57,15 +60,16 @@ export class ParticleLifetimeSystem extends System {
       this.areas = this.areas.filter((a) => a.id !== d.id);
     });
 
+  }
 
-    entities.forEach((e) => {
-      const particle = e.getComponent<ParticleEffect>(ComponentName.ParticleEffect);
-      if (particle) {
-        particle.alive += elapsedTime;
-        if (particle.alive > particle.lifetime) {
-          grid.deleteParticleEffectEntity(e);
-        }
+
+  update(elapsedTime: number, e: Entity, grid: GameGrid): void {
+    const particle = e.getComponent<ParticleEffect>(ComponentName.ParticleEffect);
+    if (particle) {
+      particle.alive += elapsedTime;
+      if (particle.alive > particle.lifetime) {
+        grid.deleteParticleEffectEntity(e);
       }
-    });
+    }
   }
 }

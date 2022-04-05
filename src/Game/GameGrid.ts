@@ -19,6 +19,13 @@ export class GameGrid {
     }
   }
 
+  getEntitiesAt(x: number, y: number): Entity[] {
+    if (!this.grid[x] || !this.grid[x][y]) {
+      return [];
+    }
+    return Object.values(this.grid[x][y]);
+  }
+
   getEntitiesToRight(x: number, y: number): Entity[] {
     if (x >= this.size - 1) {
       return [];

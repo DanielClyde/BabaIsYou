@@ -1,3 +1,4 @@
+import { CELL_SIZE } from './../GameGrid';
 import { FlagBitPositions } from './../components/ValueFlags';
 import { AnimationFrame } from "../components/AnimatedSprite";
 import { Noun, NounType } from "../components/Noun";
@@ -19,7 +20,7 @@ export class Rock {
     };
     const img = new Image();
     img.src = '../assets/rock.png';
-    rock.addComponent(new AnimatedSprite(img, 40, 40, [
+    rock.addComponent(new AnimatedSprite(img, CELL_SIZE, CELL_SIZE, [
       { ...defaultFrame },
       {
         ...defaultFrame,

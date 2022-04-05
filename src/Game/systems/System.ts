@@ -8,5 +8,6 @@ export interface SystemUpdateResult {
 }
 
 export abstract class System {
-  abstract update(elapsedTime: number, entities: Entity[], gameGrid: GameGrid, ...args: any[]): void;
+  abstract update(elapsedTime: number, entity: Entity, gameGrid: GameGrid, ...args: any[]): void;
+  public reset() { }
 }

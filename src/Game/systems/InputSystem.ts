@@ -9,28 +9,29 @@ import { GameGrid } from '../GameGrid';
 
 type Direction = 'up' | 'down' | 'left' | 'right';
 export class InputSystem extends System {
-  private keyboardInput = new KeyboardInputDriver();
+  keyboardInput = new KeyboardInputDriver();
 
-  update(_elapsedTime: number, entities: Entity[], grid: GameGrid, ..._args: any[]): void {
-    entities.forEach((e) => {
-      const [input, position] = [e.getComponent<InputControlled>(ComponentName.InputControlled), e.getComponent<Position>(ComponentName.Position)];
-      if (input && position) {
-        if (this.keyboardInput.isKeyPressed(input.controls.MOVE_DOWN)) {
-          this.moveEntityDirection('down', e, position, grid);
-        } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_LEFT)) {
-          this.moveEntityDirection('left', e, position, grid);
-        } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_RIGHT)) {
-          this.moveEntityDirection('right', e, position, grid);
-        } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_UP)) {
-          this.moveEntityDirection('up', e, position, grid);
-        } else if (this.keyboardInput.isKeyPressed(input.controls.RESET)) {
+  update(_elapsedTime: number, e: Entity, grid: GameGrid, keysToDisable: {[key: string]: boolean}): void {
+    const [input, position] = [e.getComponent<InputControlled>(ComponentName.InputControlled), e.getComponent<Position>(ComponentName.Position)];
+    if (input && position) {
+      if (this.keyboardInput.isKeyPressed(input.controls.MOVE_DOWN)) {
+        this.moveEntityDirection('down', e, position, grid);
+        keysToDisable[input.controls.MOVE_DOWN] = true;
+      } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_LEFT)) {
+        this.moveEntityDirection('left', e, position, grid);
+        keysToDisable[input.controls.MOVE_LEFT] = true;
+      } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_RIGHT)) {
+        this.moveEntityDirection('right', e, position, grid);
+        keysToDisable[input.controls.MOVE_RIGHT] = true;
+      } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_UP)) {
+        this.moveEntityDirection('up', e, position, grid);
+        keysToDisable[input.controls.MOVE_UP] = true;
+      } else if (this.keyboardInput.isKeyPressed(input.controls.RESET)) {
 
-        } else if (this.keyboardInput.isKeyPressed(input.controls.UNDO)) {
+      } else if (this.keyboardInput.isKeyPressed(input.controls.UNDO)) {
 
-        }
-        // console.log(elapsedTime, input);
       }
-    });
+    }
   }
 
   private moveEntityDirection(direction: Direction, e: Entity, position: Position, grid: GameGrid) {

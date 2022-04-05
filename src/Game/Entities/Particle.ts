@@ -1,4 +1,3 @@
-import { CELL_SIZE } from './../GameGrid';
 import { SmoothMovable } from '../components/SmoothMovable';
 import { Position } from './../components/Position';
 import { Sprite } from './../components/Sprite';
@@ -52,7 +51,7 @@ export class Particle {
     p.addComponent(new SmoothMovable(speed, direction));
     p.addComponent(new Position({ ...newCoords }));
     const img = new Image();
-    img.src = '../../assets/fire-purple.png';
+    img.src = '../../assets/fire-pink.png';
     p.addComponent(new Sprite(img, size, size));
     return p;
   }

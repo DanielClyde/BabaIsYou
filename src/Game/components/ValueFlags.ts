@@ -12,6 +12,7 @@ export const FlagBitPositions = {
 
 export class ValueFlags extends Component {
   value = 0;
+  uneditableFlags = 0;
   constructor() {
     super(ComponentName.ValueFlags);
   }
@@ -20,7 +21,10 @@ export class ValueFlags extends Component {
     return BitwiseHelper.getBooleanFromFlags(this.value, bit);
   }
 
-  setFlag(bit: number, val: boolean) {
+  setFlag(bit: number, val: boolean, setDefault = false) {
     this.value = BitwiseHelper.setBooleanInFlags(this.value, val, bit);
+    if (setDefault) {
+      this.uneditableFlags = BitwiseHelper.setBooleanInFlags(this.uneditableFlags, val, bit);
+    }
   }
 }

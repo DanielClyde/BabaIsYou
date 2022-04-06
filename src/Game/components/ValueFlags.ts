@@ -3,11 +3,13 @@ import { Component, ComponentName } from "./Component";
 
 export const FlagBitPositions = {
   PUSH: 0,
-  MOVE: 1,
+  STOP: 1,
   YOU: 2,
   WIN: 3,
-  KILL: 4,
-  STOP: 5,
+  BURN: 4,
+  SINK: 5,
+  BURNABLE: 6,
+  SINKABLE: 7,
 }
 
 export class ValueFlags extends Component {

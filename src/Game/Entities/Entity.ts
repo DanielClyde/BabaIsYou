@@ -1,3 +1,7 @@
+import { BurnLetters } from './BurnLetters';
+import { LavaLetters } from './LavaLetters';
+import { SinkLetters } from './SinkLetters';
+import { WaterLetters } from './WaterLetters';
 import { FlagLetters } from './FlagLetters';
 import { YouLetters } from './YouLetters';
 import { StopLetters } from './StopLetters';
@@ -16,6 +20,8 @@ import { Baba } from './Baba';
 import { Rock } from './Rock';
 import { Floor } from './Floor';
 import { WallLetters } from './WallLetters';
+import { Water } from './Water';
+import { Lava } from './Lava';
 
 
 export type ComponentDictionary = { [key in ComponentName]?: Component };
@@ -36,6 +42,12 @@ export enum EntityType {
   WALL_LETTERS = 'W',
   FLAG_LETTERS = 'F',
   WIN_LETTERS = 'X',
+  WATER_LETTERS = 'A',
+  WATER = 'a',
+  SINK_LETTERS = 'N',
+  LAVA_LETTERS = 'V',
+  LAVA = 'v',
+  BURN_LETTERS = 'K',
 }
 export class Entity {
   static FromType(type: EntityType, coords: Coordinates) {
@@ -69,6 +81,18 @@ export class Entity {
       return YouLetters.Create(coords);
     } else if (type === EntityType.FLAG_LETTERS) {
       return FlagLetters.Create(coords);
+    } else if (type === EntityType.WATER_LETTERS) {
+      return WaterLetters.Create(coords);
+    } else if (type === EntityType.WATER) {
+      return Water.Create(coords);
+    } else if (type === EntityType.SINK_LETTERS) {
+      return SinkLetters.Create(coords);
+    } else if (type === EntityType.LAVA) {
+      return Lava.Create(coords);
+    } else if (type === EntityType.LAVA_LETTERS) {
+      return LavaLetters.Create(coords);
+    } else if (type === EntityType.BURN_LETTERS) {
+      return BurnLetters.Create(coords);
     } else {
       return null;
     }

@@ -3,14 +3,14 @@ import { IDGenerator } from './../Entities/Entity';
 import { Coordinates } from './../components/Position';
 import { ParticleEffect } from './../components/ParticleEffect';
 import { Entity } from "../Entities/Entity";
-import { System, SystemUpdateResult } from "./System";
+import { System } from "./System";
 import { ComponentName } from '../components/Component';
 import { Particle } from '../Entities/Particle';
 
 export enum ParticleEffectType {
-  EXPLOSION,
   FIREWORK,
   BORDER_SPARKLE,
+  DESTROY,
 }
 
 export interface ParticleAreas {
@@ -36,7 +36,7 @@ export class ParticleLifetimeSystem extends System {
       alive: 0,
       center,
       id: IDGenerator.getNextId(),
-      particlesPerFrame: type === ParticleEffectType.EXPLOSION ? 25 : 10,
+      particlesPerFrame: type === ParticleEffectType.FIREWORK ? 25 : type === ParticleEffectType.BORDER_SPARKLE ? 5 : 2,
     });
   }
 
@@ -45,10 +45,12 @@ export class ParticleLifetimeSystem extends System {
     this.areas.forEach((a) => {
       // Add new particle to area each frame;
       for (let i = 0; i < a.particlesPerFrame; i++) {
-        if (a.type === ParticleEffectType.EXPLOSION) {
-          grid.insert(a.center.x, a.center.y, Particle.Explosion({ ...a.center }));
+        if (a.type === ParticleEffectType.FIREWORK) {
+          grid.insert(a.center.x, a.center.y, Particle.Firework({ ...a.center }));
         } else if (a.type === ParticleEffectType.BORDER_SPARKLE) {
           grid.insert(a.center.x, a.center.y, Particle.BorderSparkle({ ...a.center }));
+        } else if (a.type === ParticleEffectType.DESTROY) {
+          grid.insert(a.center.x, a.center.y, Particle.DestroyCloud({ ...a.center }));
         }
       }
       a.alive += elapsedTime;

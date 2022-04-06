@@ -12,6 +12,7 @@ import isEqual from 'lodash/isEqual';
 export class RuleSystem extends System {
   private rules: Array<[NounType, number]> = [];
   private previousRules: Array<[NounType, number]> = [];
+  private nounsToSparkle: Array<NounType> = [];
 
   rulesChanged = false;
 
@@ -19,12 +20,14 @@ export class RuleSystem extends System {
     super.reset();
     this.rules = [];
     this.previousRules = [];
+    this.nounsToSparkle = [];
     this.rulesChanged = false;
   }
 
   updateRules(entities: Entity[], grid: GameGrid) {
     this.rulesChanged = false;
     this.rules = [];
+    this.nounsToSparkle = [];
     entities.forEach((e) => {
       const [text, position] = [e.getComponent<Text>(ComponentName.Text), e.getComponent<Position>(ComponentName.Position)];
       if (text && text.type === TextType.IS) {
@@ -36,7 +39,6 @@ export class RuleSystem extends System {
           const topText = top.getComponent<Text>(ComponentName.Text);
           const bottomText = bottom.getComponent<Text>(ComponentName.Text);
           if (topText && bottomText && topText.type !== bottomText.type) {
-            // console.log('RULE', top, bottom);
             this.rules.push(
               topText.type === TextType.NOUN ?
                 [this.getNounTypeFromEntity(top), this.getFlagNumberFromEntity(bottom)] :
@@ -47,7 +49,6 @@ export class RuleSystem extends System {
           const leftText = left.getComponent<Text>(ComponentName.Text);
           const rightText = right.getComponent<Text>(ComponentName.Text);
           if (leftText && rightText && leftText.type !== rightText.type) {
-            // console.log('RULE', left, right);
             this.rules.push(
               leftText.type === TextType.NOUN ?
                 [this.getNounTypeFromEntity(left), this.getFlagNumberFromEntity(right)] :
@@ -60,15 +61,24 @@ export class RuleSystem extends System {
     });
     if (!isEqual(this.rules, this.previousRules)) {
       this.rulesChanged = true;
+      this.nounsToSparkle = this.rules.filter((r) => {
+        const i = this.previousRules.findIndex((old) => old[0] === r[0] && old[1] === r[1]);
+       return (r[1] === FlagBitPositions.WIN || r[1] === FlagBitPositions.YOU) && i === -1;
+      }).map((r) => r[0]);
+      console.log('RULES', this.rules);
     }
     this.previousRules = this.rules;
   }
 
-  update(elapsedTime: number, entity: Entity, gameGrid: GameGrid, ...args: any[]): void {
+  update(elapsedTime: number, entity: Entity, gameGrid: GameGrid, sparkleCb: (x: number, y: number) => void): void {
     if (!this.rulesChanged) {
       return;
     } else {
-      const [noun, flags] = [entity.getComponent<Noun>(ComponentName.Noun), entity.getComponent<ValueFlags>(ComponentName.ValueFlags)];
+      const [noun, flags, position] = [
+        entity.getComponent<Noun>(ComponentName.Noun),
+        entity.getComponent<ValueFlags>(ComponentName.ValueFlags),
+        entity.getComponent<Position>(ComponentName.Position),
+      ];
       if (noun && flags) {
         flags.value = flags.uneditableFlags;
         const rules = this.rules.filter((r) => r[0] === noun.type);
@@ -80,6 +90,9 @@ export class RuleSystem extends System {
           entity.removeComponent(ComponentName.InputControlled);
         } else if (flags.getFlag(FlagBitPositions.YOU) && !input) {
           entity.addComponent(new InputControlled(DefaultControls));
+        }
+        if (this.nounsToSparkle.includes(noun.type)) {
+          sparkleCb(position.coords.x, position.coords.y);
         }
       }
     }
@@ -94,6 +107,8 @@ export class RuleSystem extends System {
       return NounType.ROCK;
     } else if (e.type === EntityType.WALL_LETTERS) {
       return NounType.WALL;
+    } else if (e.type === EntityType.WATER_LETTERS) {
+      return NounType.WATER;
     } else {
       return NounType.LAVA;
     }
@@ -108,6 +123,10 @@ export class RuleSystem extends System {
       return FlagBitPositions.WIN;
     } else if (e.type === EntityType.YOU_LETTERS) {
       return FlagBitPositions.YOU;
+    } else if (e.type === EntityType.SINK_LETTERS) {
+      return FlagBitPositions.SINK;
+    } else if (e.type === EntityType.BURN_LETTERS) {
+      return FlagBitPositions.BURN;
     } else {
       return -1;
     }

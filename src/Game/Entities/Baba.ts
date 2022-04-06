@@ -44,6 +44,8 @@ export class Baba {
     baba.addComponent(new Noun(NounType.BABA));
     const flagsComponent = new ValueFlags();
     flagsComponent.setFlag(FlagBitPositions.YOU, true);
+    flagsComponent.setFlag(FlagBitPositions.SINKABLE, true, true);
+    flagsComponent.setFlag(FlagBitPositions.BURNABLE, true, true);
     baba.addComponent(flagsComponent);
     return baba;
   }

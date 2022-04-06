@@ -35,6 +35,7 @@ export class Rock {
     rock.addComponent(new Noun(NounType.ROCK));
     const flagsComponent = new ValueFlags();
     flagsComponent.setFlag(FlagBitPositions.PUSH, true);
+    flagsComponent.setFlag(FlagBitPositions.SINKABLE, true, true);
     rock.addComponent(flagsComponent);
     return rock;
   }

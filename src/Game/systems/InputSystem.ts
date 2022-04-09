@@ -1,7 +1,7 @@
 import { ValueFlags, FlagBitPositions } from './../components/ValueFlags';
 import { KeyboardInputDriver } from './../Drivers/KeyboardInputDriver';
 import { Entity } from './../Entities/Entity';
-import { InputControlled } from './../components/InputControlled';
+import { InputControlled, Controls } from './../components/InputControlled';
 import { ComponentName } from './../components/Component';
 import { System } from "./System";
 import { Position } from '../components/Position';
@@ -9,27 +9,41 @@ import { GameGrid } from '../GameGrid';
 
 type Direction = 'up' | 'down' | 'left' | 'right';
 export class InputSystem extends System {
-  keyboardInput = new KeyboardInputDriver();
+  constructor(private keyboardInput: KeyboardInputDriver) {
+    super();
+  }
 
-  update(_elapsedTime: number, e: Entity, grid: GameGrid, keysToDisable: {[key: string]: boolean}): void {
+  checkUndoOrReset(onReset: () => void, onUndo: () => void, pressedKeys: {[key: string]: boolean}, controls: Controls) {
+    if (this.keyboardInput.isKeyPressed(controls.RESET)) {
+      pressedKeys[controls.RESET] = true;
+      onReset();
+    } else if (this.keyboardInput.isKeyPressed(controls.UNDO)) {
+      pressedKeys[controls.UNDO] = true;
+      onUndo();
+    }
+  }
+
+  update(
+    _elapsedTime: number,
+    e: Entity,
+    grid: GameGrid,
+    keysToDisable: { [key: string]: boolean },
+    controls: Controls,
+  ): void {
     const [input, position] = [e.getComponent<InputControlled>(ComponentName.InputControlled), e.getComponent<Position>(ComponentName.Position)];
     if (input && position) {
-      if (this.keyboardInput.isKeyPressed(input.controls.MOVE_DOWN)) {
+      if (this.keyboardInput.isKeyPressed(controls.MOVE_DOWN)) {
         this.moveEntityDirection('down', e, position, grid);
-        keysToDisable[input.controls.MOVE_DOWN] = true;
-      } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_LEFT)) {
+        keysToDisable[controls.MOVE_DOWN] = true;
+      } else if (this.keyboardInput.isKeyPressed(controls.MOVE_LEFT)) {
         this.moveEntityDirection('left', e, position, grid);
-        keysToDisable[input.controls.MOVE_LEFT] = true;
-      } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_RIGHT)) {
+        keysToDisable[controls.MOVE_LEFT] = true;
+      } else if (this.keyboardInput.isKeyPressed(controls.MOVE_RIGHT)) {
         this.moveEntityDirection('right', e, position, grid);
-        keysToDisable[input.controls.MOVE_RIGHT] = true;
-      } else if (this.keyboardInput.isKeyPressed(input.controls.MOVE_UP)) {
+        keysToDisable[controls.MOVE_RIGHT] = true;
+      } else if (this.keyboardInput.isKeyPressed(controls.MOVE_UP)) {
         this.moveEntityDirection('up', e, position, grid);
-        keysToDisable[input.controls.MOVE_UP] = true;
-      } else if (this.keyboardInput.isKeyPressed(input.controls.RESET)) {
-
-      } else if (this.keyboardInput.isKeyPressed(input.controls.UNDO)) {
-
+        keysToDisable[controls.MOVE_UP] = true;
       }
     }
   }

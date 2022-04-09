@@ -5,12 +5,48 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MarioIsYou</title>
+  <title>BaBa Is You</title>
 </head>
 
 <body>
-  <canvas id="game-canvas" width="1000" height="1000"
-    style="border: 1px solid black; width: min(75vw, 75vh); height: min(75vw, 75vh);"></canvas>
+  <div id="game">
+    <div id="main-menu-screen" class="screen">
+      <div class="title">BaBa Is You</div>
+      <div id="btn-level-select" class="menu-button">new game</div>
+      <div id="btn-controls" class="menu-button">controls</div>
+      <div id="btn-credits" class="menu-button">credits</div>
+    </div>
+    <div id="game-play-screen" class="screen">
+      <canvas id="game-canvas" width="1000" height="1000" style="width: 100%; height: 100%"></canvas>
+    </div>
+    <div id="level-select-screen" class="screen">
+      <div id="level-1" class="menu-button">Level 1</div>
+      <div id="level-2" class="menu-button">Level 2</div>
+      <div id="level-3" class="menu-button">Level 3</div>
+      <div id="level-4" class="menu-button">Level 4</div>
+      <div id="level-5" class="menu-button">Level 5</div>
+    </div>
+    <div id="credits-screen" class="screen">
+      <div class="title">CREDITS</div>
+      <div class="credit">
+        <div>GAME CODE:</div>
+        <div>Danny Clyde</div>
+      </div>
+      <div class="credit">
+        <div>SPECIAL THANKS:</div>
+        <div>Dr. Mathias</div>
+      </div>
+    </div>
+    <div id="controls-screen" class="screen">
+      <div class="title">CONTROLS</div>
+      <div id="MOVE_UP" class="menu-button"></div>
+      <div id="MOVE_DOWN" class="menu-button"></div>
+      <div id="MOVE_RIGHT" class="menu-button"></div>
+      <div id="MOVE_LEFT" class="menu-button"></div>
+      <div id="UNDO" class="menu-button"></div>
+      <div id="RESET" class="menu-button"></div>
+    </div>
+  </div>
   <script type="module" src="/src/main.ts"></script>
 </body>
 

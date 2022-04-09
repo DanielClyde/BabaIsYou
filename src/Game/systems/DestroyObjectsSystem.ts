@@ -14,7 +14,6 @@ export class DestroyObjectsSystem extends System {
       otherEntities.forEach((o) => {
         const flags2 = o.getComponent<ValueFlags>(ComponentName.ValueFlags);
         if (flags2 && flags2.getFlag(FlagBitPositions.SINK)) {
-          console.log('other', o);
           onDestroy([entity, o]);
         }
       });

@@ -22,6 +22,7 @@ import { Floor } from './Floor';
 import { WallLetters } from './WallLetters';
 import { Water } from './Water';
 import { Lava } from './Lava';
+import cloneDeep from 'lodash/cloneDeep';
 
 
 export type ComponentDictionary = { [key in ComponentName]?: Component };
@@ -115,6 +116,13 @@ export class Entity {
 
   getComponent<T extends Component>(componentName: ComponentName): T {
     return this.components[componentName] as T;
+  }
+
+  clone(): Entity {
+    const e = new Entity(this.type);
+    e.id = this.id;
+    e.components = cloneDeep(this.components);
+    return e;
   }
 }
 

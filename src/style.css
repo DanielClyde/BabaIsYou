@@ -1,3 +1,91 @@
-canvas {
-  background: rgba(0, 0, 0, 1);
+body {
+  margin: 0;
+}
+
+#game {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgb(44, 0, 62);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.modal {
+  width: min(60vw, 60vh);
+  height: min(45vw, 45vh);
+  background: rgba(0,0,0,.5);
+  border: 2px solid white;
+  display: none;
+  color: white;
+  position: absolute;
+  margin: auto;
+}
+
+.screen {
+  position: relative;
+  width: min(80vw, 80vh);
+  height: min(80vw, 80vh);
+  background: rgba(0, 0, 0, 0.95);
+  border: 2px solid white;
+  display: none;
+  color: white;
+}
+
+.screen.active, .modal.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.menu-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid white;
+  height: 10%;
+  width: 50%;
+  font-size: min(4vw, 4vh);
+}
+.menu-button.hovering {
+  transform: scale(1.1);
+  border: 2px solid darkgoldenrod;
+  color: darkgoldenrod;
+  cursor: pointer;
+}
+
+.title {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  font-size: min(7vw, 7vh);
+}
+
+.credit {
+  font-size: min(4vw, 4vh);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.credit>:first-child {
+  margin-bottom: 10px;
+}
+
+.sub-title {
+  font-size: min(4vw, 4vh);
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+.sub-title>:first-child {
+  margin-right: 20px;
+}
+.sub-title>:last-child {
+  font-size: min(3vw, 3vh);
 }

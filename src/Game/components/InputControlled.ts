@@ -19,7 +19,7 @@ export const DefaultControls: Controls = {
   RESET: 'r',
 }
 export class InputControlled extends Component {
-  constructor(public controls: Controls) {
+  constructor() {
     super(ComponentName.InputControlled);
   }
 }

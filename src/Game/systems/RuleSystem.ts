@@ -65,7 +65,6 @@ export class RuleSystem extends System {
         const i = this.previousRules.findIndex((old) => old[0] === r[0] && old[1] === r[1]);
        return (r[1] === FlagBitPositions.WIN || r[1] === FlagBitPositions.YOU) && i === -1;
       }).map((r) => r[0]);
-      console.log('RULES', this.rules);
     }
     this.previousRules = this.rules;
   }
@@ -89,7 +88,7 @@ export class RuleSystem extends System {
         if (input && !flags.getFlag(FlagBitPositions.YOU)) {
           entity.removeComponent(ComponentName.InputControlled);
         } else if (flags.getFlag(FlagBitPositions.YOU) && !input) {
-          entity.addComponent(new InputControlled(DefaultControls));
+          entity.addComponent(new InputControlled());
         }
         if (this.nounsToSparkle.includes(noun.type)) {
           sparkleCb(position.coords.x, position.coords.y);

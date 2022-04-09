@@ -14,7 +14,6 @@ export class WinSystem extends System {
       otherEntities.forEach((o) => {
         const flags2 = o.getComponent<ValueFlags>(ComponentName.ValueFlags);
         if (flags2 && flags2.getFlag(FlagBitPositions.WIN)) {
-          console.log('FOUND WINNER', position);
           onWinCb();
         }
       })

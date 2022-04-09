@@ -2,6 +2,7 @@ import { ParticleEffect } from './components/ParticleEffect';
 import { ComponentName } from "./components/Component";
 import { Position } from "./components/Position";
 import { Entity } from "./Entities/Entity";
+// import cryptr from 'cryptr';
 
 export type EntityDictionary = { [entityId: number]: Entity }
 
@@ -9,6 +10,7 @@ export const CELL_SIZE = 50;
 
 export class GameGrid {
   private grid: Array<Array<EntityDictionary>> = [];
+  private stack: Array<Array<Array<EntityDictionary>>> = [];
 
   constructor(public size: number) {
     for (let x = 0; x < size; x++) {
@@ -17,6 +19,20 @@ export class GameGrid {
         this.grid[x][y] = {};
       }
     }
+  }
+
+  private cloneGrid(gridToClone: Array<Array<EntityDictionary>>): Array<Array<EntityDictionary>> {
+    const g: Array<Array<EntityDictionary>> = [];
+    for (let i = 0; i < gridToClone.length; i++) {
+      g[i] = [];
+      for (let j = 0; j < gridToClone.length; j++) {
+        g[i][j] = { };
+        for (const key of Object.keys(gridToClone[i][j])) {
+          g[i][j][+key] = gridToClone[i][j][+key].clone();
+        }
+      }
+    }
+    return g;
   }
 
   getEntitiesAt(x: number, y: number): Entity[] {
@@ -56,12 +72,27 @@ export class GameGrid {
 
   getAllEntities() {
     const entities: Entity[] = [];
-    this.grid.forEach(row => {
-      row.forEach(dict => {
-        Object.values(dict).forEach(e => entities.push(e));
-      });
-    });
+    for (let i = 0; i < this.grid.length; i++) {
+      for (let j = 0; j < this.grid.length; j++) {
+        const dict = this.grid[i][j];
+        for (const e of Object.values(dict)) {
+          entities.push(e);
+        }
+      }
+    }
     return entities;
+  }
+
+  saveToStack() {
+    this.stack.push(this.cloneGrid(this.grid));
+  }
+
+  undo() {
+    if (this.stack.length >= 2) {
+      this.stack.pop();
+      const last = this.cloneGrid(this.stack[this.stack.length - 1]);
+      this.grid = last;
+    }
   }
 
   insert(x: number, y: number, entity: Entity) {

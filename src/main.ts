@@ -1,7 +1,4 @@
-import { GameModel } from './Game/GameModel';
+import { MenuSystem } from './Menu/MenuSystem';
 import './style.css'
 
-const gameModel = new GameModel();
-gameModel.init().then(() => {
-  gameModel.startLoop();
-});
+const menu = new MenuSystem();

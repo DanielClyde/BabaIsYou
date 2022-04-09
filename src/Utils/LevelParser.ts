@@ -2,24 +2,21 @@ import { GameGrid } from './../Game/GameGrid';
 import { Entity, EntityType } from './../Game/Entities/Entity';
 
 export class LevelParser {
-  private levels: GameGrid[] = []
 
   constructor() { }
 
   public async parseFromFile(filePath: string, gridSize = 20, level = 1): Promise<GameGrid> {
-    if (this.levels.length && this.levels[level - 1]) {
-      return this.levels[level - 1];
-    }
+    const levels: GameGrid[] = [];
     const res = await fetch(filePath);
     let text = await res.text();
     text = text.replace(/Level-\d*/gm, '');
     text = text.replace(/\d* x \d*/gm, '');
     while (text.length) {
       let parsed = this.parse(text, gridSize);
-      this.levels.push(parsed.grid);
+      levels.push(parsed.grid);
       text = parsed.text;
     }
-    return this.levels[level - 1];
+    return levels[level - 1];
   }
 
   private parse(text: string, gridSize: number): { grid: GameGrid, text: string } {

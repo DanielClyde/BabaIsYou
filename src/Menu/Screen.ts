@@ -1,3 +1,4 @@
+import { SoundTrack } from '../Game/Drivers/AudioDriver';
 import { MenuSystem } from './MenuSystem';
 export enum ScreenType {
   MAIN_MENU = 'main-menu-screen',
@@ -71,6 +72,10 @@ export abstract class Screen {
     if (this.selectedBtnIndex >= 0) {
       this.buttons[this.selectedBtnIndex].click();
     }
+    if (!this.menu.gameModel.audioDriver.isPlaying ||
+        !this.menu.gameModel.audioDriver.currentSoundTrack) {
+          this.menu.gameModel.audioDriver.playMusic(SoundTrack.GAME);
+        }
   }
 
   abstract onEscape(): void;

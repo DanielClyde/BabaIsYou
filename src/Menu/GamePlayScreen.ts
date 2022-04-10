@@ -16,7 +16,7 @@ export class GamePlayScreen extends Screen {
     this.menu.gameModel.stopLoop();
   }
 
-  buttonClicked(elId: string): void { }
+  buttonClicked(_elId: string): void { }
   onArrowDown(): void { }
   onArrowUp(): void { }
   onEnter(): void { }

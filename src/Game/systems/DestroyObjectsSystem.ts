@@ -7,7 +7,7 @@ import { GameGrid } from "../GameGrid";
 import { System } from "./System";
 
 export class DestroyObjectsSystem extends System {
-  update(elapsedTime: number, entity: Entity, gameGrid: GameGrid, onDestroy: (entities: Entity[]) => void): void {
+  update(_elapsedTime: number, entity: Entity, gameGrid: GameGrid, onDestroy: (entities: Entity[]) => void): void {
     const [position, flags1] = [entity.getComponent<Position>(ComponentName.Position), entity.getComponent<ValueFlags>(ComponentName.ValueFlags)];
     if (position && flags1 && flags1.getFlag(FlagBitPositions.SINKABLE)) {
       const otherEntities = gameGrid.getEntitiesAt(position.coords.x, position.coords.y);

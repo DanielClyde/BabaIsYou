@@ -33,14 +33,7 @@ export class Baba {
       },
     ]));
     baba.addComponent(new Position({ ...coords }));
-    baba.addComponent(new InputControlled({
-      MOVE_DOWN: 's',
-      MOVE_LEFT: 'a',
-      MOVE_RIGHT: 'd',
-      MOVE_UP: 'w',
-      UNDO: 'z',
-      RESET: 'r',
-    }));
+    baba.addComponent(new InputControlled());
     baba.addComponent(new Noun(NounType.BABA));
     const flagsComponent = new ValueFlags();
     flagsComponent.setFlag(FlagBitPositions.YOU, true);

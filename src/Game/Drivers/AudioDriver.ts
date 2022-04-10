@@ -3,16 +3,16 @@ export enum SoundTrack {
 }
 
 export enum SoundEffect {
-  DEAD = 'assets/sounds/dead.ogg',
-  MOVE = 'assets/sounds/move.ogg',
-  WIN_CHANGE = 'assets/sounds/win-change.ogg',
-  WIN = 'assets/sounds/win.ogg',
+  DEAD = 'assets/sounds/dead.mp3',
+  MOVE = 'assets/sounds/move.mp3',
+  WIN_CHANGE = 'assets/sounds/win-change.mp3',
+  WIN = 'assets/sounds/win.mp3',
 }
 
 export class AudioDriver {
   private soundTracks: { [key in SoundTrack]?: HTMLAudioElement } = {};
   private soundEffects: { [key in SoundEffect]?: HTMLAudioElement } = {};
-  private currentSoundTrack?: HTMLAudioElement;
+  public currentSoundTrack?: HTMLAudioElement;
   public isPlaying = false;
 
   init(): Promise<void> {
@@ -57,7 +57,7 @@ export class AudioDriver {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => {
         reject(`Unable to init audio ${src} in a reasonable time`);
-      }, 5000);
+      }, 8000);
       const audio = new Audio(src);
       audio.autoplay = false;
       audio.loop = isSoundtrack;

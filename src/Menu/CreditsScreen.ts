@@ -7,7 +7,7 @@ export class CreditsScreen extends Screen {
     this.findButtons();
   }
 
-  buttonClicked(elId: string): void { }
+  buttonClicked(_elId: string): void { }
 
   onArrowDown(): void { }
 

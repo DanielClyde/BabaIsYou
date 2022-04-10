@@ -1,4 +1,4 @@
-import { InputControlled, DefaultControls } from './../components/InputControlled';
+import { InputControlled } from './../components/InputControlled';
 import { FlagBitPositions, ValueFlags } from './../components/ValueFlags';
 import { NounType, Noun } from './../components/Noun';
 import { Position } from './../components/Position';
@@ -69,7 +69,7 @@ export class RuleSystem extends System {
     this.previousRules = this.rules;
   }
 
-  update(elapsedTime: number, entity: Entity, gameGrid: GameGrid, sparkleCb: (x: number, y: number) => void): void {
+  update(_elapsedTime: number, entity: Entity, _gameGrid: GameGrid, sparkleCb: (x: number, y: number) => void): void {
     if (!this.rulesChanged) {
       return;
     } else {

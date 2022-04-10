@@ -7,7 +7,7 @@ import { ComponentName } from '../components/Component';
 import { CELL_SIZE, GameGrid } from '../GameGrid';
 
 export class RenderAnimatedSpriteSystem extends System {
-  update(elapsedTime: number, e: Entity, grid: GameGrid, renderDriver: RenderDriver): void {
+  update(elapsedTime: number, e: Entity, _grid: GameGrid, renderDriver: RenderDriver): void {
     const [animatedSprite, position] = [
       e.getComponent<AnimatedSprite>(ComponentName.AnimatedSprite),
       e.getComponent<Position>(ComponentName.Position),

@@ -7,7 +7,7 @@ import { System } from "./System";
 import { Entity } from '../Entities/Entity';
 
 export class RenderSpriteSystem extends System {
-  update(_elapsedTime: number, e: Entity, grid: GameGrid, renderDriver: RenderDriver): void {
+  update(_elapsedTime: number, e: Entity, _grid: GameGrid, renderDriver: RenderDriver): void {
     const [sprite, position] = [e.getComponent<Sprite>(ComponentName.Sprite), e.getComponent<Position>(ComponentName.Position)];
     if (sprite && position) {
       renderDriver.renderImage(

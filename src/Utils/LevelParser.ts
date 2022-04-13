@@ -1,5 +1,6 @@
 import { GameGrid } from './../Game/GameGrid';
-import { Entity, EntityType } from './../Game/Entities/Entity';
+import { EntityFromEntityType } from '../Game/EntityFactory';
+import { EntityType } from './../Game/Entities/Entity';
 
 export class LevelParser {
 
@@ -41,7 +42,7 @@ export class LevelParser {
       r = this.getNextRow(text);
       text = text.substring(r.length + 2, text.length);
       for (let x = 0; x < grid.size; x++) {
-        const e = Entity.FromType(r[x] as EntityType, { x, y });
+        const e = EntityFromEntityType(r[x] as EntityType, { x, y });
         if (e) {
           grid.insert(x, y, e);
         }

@@ -1,27 +1,5 @@
-import { BurnLetters } from './BurnLetters';
-import { LavaLetters } from './LavaLetters';
-import { SinkLetters } from './SinkLetters';
-import { WaterLetters } from './WaterLetters';
-import { FlagLetters } from './FlagLetters';
-import { YouLetters } from './YouLetters';
-import { StopLetters } from './StopLetters';
-import { WinLetters } from './WinLetters';
-import { PushLetters } from './PushLetters';
-import { RockLetters } from './RockLetters';
-import { IsLetters } from './IsLetters';
-import { BabaLetters } from './BabaLetters';
-import { Flag } from './Flag';
 import { ComponentName as ComponentName } from './../components/Component';
 import { Component } from "../components/Component";
-import { Wall } from './Wall';
-import { Coordinates } from '../components/Position';
-import { Hedge } from './Hedge';
-import { Baba } from './Baba';
-import { Rock } from './Rock';
-import { Floor } from './Floor';
-import { WallLetters } from './WallLetters';
-import { Water } from './Water';
-import { Lava } from './Lava';
 import cloneDeep from 'lodash/cloneDeep';
 
 
@@ -51,54 +29,6 @@ export enum EntityType {
   BURN_LETTERS = 'K',
 }
 export class Entity {
-  static FromType(type: EntityType, coords: Coordinates) {
-    if (type === EntityType.HEDGE) {
-      return Hedge.Create(coords);
-    } else if (type === EntityType.BABA) {
-      return Baba.Create(coords);
-    } else if (type === EntityType.WALL) {
-      return Wall.Create(coords);
-    } else if (type === EntityType.FLOOR) {
-      return Floor.Create(coords);
-    } else if (type === EntityType.ROCK) {
-      return Rock.Create(coords);
-    } else if (type === EntityType.FLAG) {
-      return Flag.Create(coords);
-    } else if (type === EntityType.BABA_LETTERS) {
-      return BabaLetters.Create(coords);
-    } else if (type === EntityType.IS_LETTERS) {
-      return IsLetters.Create(coords);
-    } else if (type === EntityType.ROCK_LETTERS) {
-      return RockLetters.Create(coords);
-    } else if (type === EntityType.WALL_LETTERS) {
-      return WallLetters.Create(coords);
-    } else if (type === EntityType.PUSH_LETTERS) {
-      return PushLetters.Create(coords)
-    } else if (type === EntityType.WIN_LETTERS) {
-      return WinLetters.Create(coords);
-    } else if (type === EntityType.STOP_LETTERS) {
-      return StopLetters.Create(coords);
-    } else if (type === EntityType.YOU_LETTERS) {
-      return YouLetters.Create(coords);
-    } else if (type === EntityType.FLAG_LETTERS) {
-      return FlagLetters.Create(coords);
-    } else if (type === EntityType.WATER_LETTERS) {
-      return WaterLetters.Create(coords);
-    } else if (type === EntityType.WATER) {
-      return Water.Create(coords);
-    } else if (type === EntityType.SINK_LETTERS) {
-      return SinkLetters.Create(coords);
-    } else if (type === EntityType.LAVA) {
-      return Lava.Create(coords);
-    } else if (type === EntityType.LAVA_LETTERS) {
-      return LavaLetters.Create(coords);
-    } else if (type === EntityType.BURN_LETTERS) {
-      return BurnLetters.Create(coords);
-    } else {
-      return null;
-    }
-  }
-
   private components: ComponentDictionary = {};
   id: number;
   type: EntityType;
